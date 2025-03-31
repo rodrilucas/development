@@ -17,3 +17,17 @@ while IFS= read -r line; do
 done <extensions
 
 echo "Extensões do vscode instaladas com sucesso."
+
+echo "Instalando google chrome"
+
+version=${uname -m}
+
+if wget https://dl.google.com/linux/direct/google-chrome-stable_current_${version}.rpm; then
+    echo "Baixando e instalando o google chrome"
+    sudo dnf install ./google-chrome-stable_current_*.rpm
+    google-chrome --version
+else
+    echo "Falha ao baixar o google chrome. Verifique a conexão ou o link"
+fi
+
+echo "Google chrome instalado com sucesso"
