@@ -7,11 +7,13 @@ else
     echo "Falha ao importar a key. Verifique a conexão ou o link!"
 fi
 
-echo "Instalando extensões"
+sudo dnf install code
+
+echo "Instalando extensões do vscode"
 
 while IFS= read -r line; do
     extension=${line#*=}
     code --install-extension ${extension%,*}
 done <extensions
 
-echo "Extensões instaladas com sucesso."
+echo "Extensões do vscode instaladas com sucesso."
