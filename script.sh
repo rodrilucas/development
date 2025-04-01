@@ -5,6 +5,7 @@ if sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc; then
     echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\nautorefresh=1\ntype=rpm-md\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" | sudo tee /etc/yum.repos.d/vscode.repo >/dev/null
 else
     echo "Falha ao importar a key. Verifique a conexão ou o link!"
+    exit 1
 fi
 
 sudo dnf install code
@@ -28,6 +29,7 @@ if wget https://dl.google.com/linux/direct/google-chrome-stable_current_${versio
     google-chrome --version
 else
     echo "Falha ao baixar o google chrome. Verifique a conexão ou o link"
+    exit 1
 fi
 
 echo "Google chrome instalado com sucesso"
@@ -38,6 +40,7 @@ if wget -O ./ideaIC-2024.3.5.tar.gz https://download.jetbrains.com/idea/ideaIC-2
     tar -xvf ./ideaIC-2024.3.5.tar.gz
 else
     echo "Falha ao baixar intellij idea community"
+    exit 1
 fi
 
 shortcut="IntellijIdea.desktop"
