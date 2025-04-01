@@ -55,7 +55,7 @@ local="$HOME/.local/share/applications"
 touch "$shortcut"
 
 while IFS= read -r line; do
-    printf "%s\n" "$line" >> "$shortcut"
+    printf "%s\n" "${line//\$HOME/$HOME}" >> "$shortcut"
 done < idea
 
 if [ ! -d "${local}" ]; then

@@ -2,8 +2,8 @@
 Name=IntelliJ IDEA
 Comment=Java IDE by JetBrains
 GenericName=Text Editor
-Exec=/home/lucas/ideaIC-2024.3.4/idea-IC-243.25659.39/bin/idea %f
-Icon=/home/lucas/ideaIC-2024.3.4/idea-IC-243.25659.39/bin/idea.svg
+Exec=$HOME/ideaIC-2024.3.4/idea-IC-243.25659.39/bin/idea %f
+Icon=$HOME/ideaIC-2024.3.4/idea-IC-243.25659.39/bin/idea.svg
 Type=Application
 StartupNotify=true
 StartupWMClass=jetbrains-idea-ce
