@@ -48,7 +48,20 @@ shortcut="IntellijIdea.desktop"
 touch $shortcut
 
 while IFS= read -r line; do
-    printf "%s\n" "$line" >> ./$shortcut
-done < idea
+    printf "%s\n" "$line" >>./$shortcut
+done <idea
 
 mv ./IntellijIdea.desktop ~/.local/share/applications
+
+echo "Intellij idea instalado com sucesso"
+
+echo "Instalando warp"
+
+if ! command -v warp &>/dev/null; then
+    echo "warp não está instalado. Instalando..."
+    sudo dnf install warp
+else
+    echo "warp já está instalado"
+fi
+
+echo "Warp instalado com seucesso"
