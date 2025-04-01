@@ -1,4 +1,6 @@
-sudo dnf update && dnf upgrade
+#!/bin/bash
+
+sudo dnf update -y && sudo dnf upgrade -y
 
 echo "Instalando vscode"
 
@@ -10,7 +12,7 @@ else
     exit 1
 fi
 
-sudo dnf install code
+sudo dnf install -y code
 
 echo "Vscode instalado com sucesso"
 
@@ -18,18 +20,18 @@ echo "Instalando extensões do vscode"
 
 while IFS= read -r line; do
     extension=${line#*=}
-    code --install-extension ${extension%,*}
-done <extensions
+    code --install-extension "${extension%,*}"
+done < extensions
 
 echo "Extensões do vscode instaladas com sucesso."
 
 echo "Instalando google chrome"
 
-version=${uname-m}
+version=$(uname -m)
 
-if wget https://dl.google.com/linux/direct/google-chrome-stable_current_${version}.rpm; then
+if wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_${version}.rpm; then
     echo "Baixando e instalando o google chrome"
-    sudo dnf install ./google-chrome-stable_current_*.rpm
+    sudo dnf install -y ./google-chrome-stable_current_*.rpm
     google-chrome --version
 else
     echo "Falha ao baixar o google chrome. Verifique a conexão ou o link"
@@ -40,38 +42,38 @@ echo "Google chrome instalado com sucesso"
 
 echo "Instalando Intellij idea"
 
-if wget -O ./ideaIC-2024.3.5.tar.gz https://download.jetbrains.com/idea/ideaIC-2024.3.5.tar.gz?_gl=1*1wmjk5v*_ga*NTYyMDgxODQ3LjE3NDM0NjMzMDI.*_ga_9J976DJZ68*MTc0MzQ2MzMwMS4xLjEuMTc0MzQ2NDA0Mi4wLjAuMA..; then
+if wget -q -O ./ideaIC-2024.3.5.tar.gz https://download.jetbrains.com/idea/ideaIC-2024.3.5.tar.gz?_gl=1*1wmjk5v*_ga*NTYyMDgxODQ3LjE3NDM0NjMzMDI.*_ga_9J976DJZ68*MTc0MzQ2MzMwMS4xLjEuMTc0MzQ2NDA0Mi4wLjAuMA..; then
     tar -xvf ./ideaIC-2024.3.5.tar.gz
 else
-    echo "Falha ao baixar intellij idea community"
+    echo "Falha ao baixar IntelliJ IDEA Community"
     exit 1
 fi
 
 shortcut="IntellijIdea.desktop"
-local="~/.local/share/applications"
+local="$HOME/.local/share/applications"
 
-touch $shortcut
+touch "$shortcut"
 
 while IFS= read -r line; do
-    printf "%s\n" "$line" >>./$shortcut
-done <idea
+    printf "%s\n" "$line" >> "$shortcut"
+done < idea
 
-if [ -d "${local}" ]; then
-    mv ./${shortcut} ${local}
-else
-    echo "O diretório não existe, criando diretório..."
-    mkdir ~/${local}
+if [ ! -d "${local}" ]; then
+    echo "Diretório não existe, criando diretório..."
+    mkdir -p "${local}"
 fi
 
-echo "Intellij idea instalado com sucesso"
+mv ./"$shortcut" "${local}"
+
+echo "Intellij Idea instalado com sucesso"
 
 echo "Instalando warp"
 
 if ! command -v warp &>/dev/null; then
     echo "warp não está instalado. Instalando..."
-    sudo dnf install warp
+    sudo dnf install -y warp
 else
     echo "warp já está instalado"
 fi
 
-echo "Warp instalado com seucesso"
+echo "Warp instalado com sucesso"
