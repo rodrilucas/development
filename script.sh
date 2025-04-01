@@ -1,5 +1,7 @@
 sudo dnf update && dnf upgrade
 
+echo "Instalando vscode"
+
 if sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc; then
     echo "Importando key..."
     echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\nautorefresh=1\ntype=rpm-md\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" | sudo tee /etc/yum.repos.d/vscode.repo >/dev/null
@@ -9,6 +11,8 @@ else
 fi
 
 sudo dnf install code
+
+echo "Vscode instalado com sucesso"
 
 echo "Instalando extensões do vscode"
 
@@ -44,6 +48,7 @@ else
 fi
 
 shortcut="IntellijIdea.desktop"
+local="~/.local/share/applications"
 
 touch $shortcut
 
@@ -51,7 +56,12 @@ while IFS= read -r line; do
     printf "%s\n" "$line" >>./$shortcut
 done <idea
 
-mv ./IntellijIdea.desktop ~/.local/share/applications
+if [ -d "${local}" ]; then
+    mv ./${shortcut} ${local}
+else
+    echo "O diretório não existe, criando diretório..."
+    mkdir ~/${local}
+fi
 
 echo "Intellij idea instalado com sucesso"
 
