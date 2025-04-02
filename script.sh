@@ -15,7 +15,7 @@ sudo dnf install -y code
 while IFS= read -r line; do
     extension=${line#*=}
     code --install-extension "${extension%,*}"
-done < extensions
+done <extensions
 
 version=$(uname -m)
 
@@ -41,8 +41,8 @@ local="$HOME/.local/share/applications"
 touch "$shortcut"
 
 while IFS= read -r line; do
-    printf "%s\n" "${line//\$HOME/$HOME}" >> "$shortcut"
-done < idea
+    printf "%s\n" "${line//\$HOME/$HOME}" >>"$shortcut"
+done <idea
 
 if [ ! -d "${local}" ]; then
     echo "Diretório não existe, criando diretório..."
@@ -62,9 +62,9 @@ APPS=(
     "rest.insomnia.Insomnia"
 )
 
-if ! command -v flatpak &> /dev/null; then
+if ! command -v flatpak &>/dev/null; then
     echo "Flatpak não encontrado. Instalando..."
-    sudo dnf install -y flatpak  
+    sudo dnf install -y flatpak
 fi
 
 if ! flatpak remote-list | grep -q "flathub"; then
@@ -76,3 +76,20 @@ for APP in "${APPS[@]}"; do
     echo "Instalando $APP..."
     flatpak install -y flathub "$APP"
 done
+
+if ! command -v docker &>/dev/null; then
+    echo "Docker não encontrado. Instalando..."
+    sudo dnf -y install dnf-plugins-core
+
+    if sudo dnf-3 config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo; then
+        echo "Adicionando repositório docker..."
+        echo "Repositório adicionado com sucesso!"
+        sudo dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+    else
+        echo "Falha ao adicionar repositório. Verifique o link"
+        exit 1
+    fi
+
+fi
+
+sudo systemctl enable --now docker
