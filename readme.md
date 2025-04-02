@@ -8,6 +8,8 @@ Este script automatiza a instalação e configuração de ferramentas e programa
 3. **Instalação do Google Chrome**: Baixa e instala a versão mais recente do Google Chrome.
 4. **Instalação do IntelliJ IDEA Community Edition**: Baixa e instala a versão mais recente do IntelliJ IDEA Community Edition.
 5. **Instalação do Warp**: Verifica se o Warp está instalado e, caso não, realiza a instalação.
+6. **Instalação do Insomnia**: Instala a versão do insomnia disponível no flathub.
+6. **Instalação do docker**: Verifica se o docker está instalado e, caso não, realiza a instalação.
 
 ### **Pré-requisitos**
 - Sistema operacional baseado em **Fedora**.
