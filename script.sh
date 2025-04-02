@@ -57,3 +57,22 @@ if ! command -v warp &>/dev/null; then
 else
     echo "warp já está instalado"
 fi
+
+APPS=(
+    "rest.insomnia.Insomnia"
+)
+
+if ! command -v flatpak &> /dev/null; then
+    echo "Flatpak não encontrado. Instalando..."
+    sudo dnf install -y flatpak  
+fi
+
+if ! flatpak remote-list | grep -q "flathub"; then
+    echo "Adicionando repositório Flathub..."
+    flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+fi
+
+for APP in "${APPS[@]}"; do
+    echo "Instalando $APP..."
+    flatpak install -y flathub "$APP"
+done
