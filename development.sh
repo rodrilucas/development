@@ -14,3 +14,9 @@ while IFS= read -r line; do
     extension=${line#*=}
     code --install-extension "${extension%,*}"
 done <extensions
+
+version=$(uname -m)
+
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_${version}.rpm || exit 1
+sudo dnf install -y ./google-chrome-stable_current_*.rpm
+google-chrome --version
