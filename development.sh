@@ -23,3 +23,15 @@ google-chrome --version
 
 wget -O ./ideaIC-2024.3.5.tar.gz "https://download.jetbrains.com/idea/ideaIC-2024.3.5.tar.gz?_gl=1*1wmjk5v*_ga*NTYyMDgxODQ3LjE3NDM0NjMzMDI.*_ga_9J976DJZ68*MTc0MzQ2MzMwMS4xLjEuMTc0MzQ2NDA0Mi4wLjAuMA.." || exit 1
 tar -xvf ./ideaIC-2024.3.5.tar.gz
+
+shortcut="IntellijIdea.desktop"
+local="$HOME/.local/share/applications"
+
+touch "$shortcut"
+
+while IFS= read -r line; do
+    printf "%s\n" "${line//\$HOME/$HOME}" >>"$shortcut"
+done <idea
+
+mkdir -p "$local"
+mv ./$shortcut "$local"
