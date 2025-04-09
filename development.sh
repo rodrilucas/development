@@ -46,3 +46,11 @@ flatpak remote-list | grep -q "flathub" || flatpak remote-add --if-not-exists fl
 for APP in "${APPS[@]}"; do
     flatpak install -y flathub "$APP"
 done
+
+if ! command -v docker &>/dev/null; then
+    sudo dnf -y install dnf-plugins-core
+    sudo dnf-3 config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo || exit 1
+    sudo dnf install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+fi
+
+sudo systemctl enable --now docker
