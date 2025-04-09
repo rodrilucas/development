@@ -35,3 +35,14 @@ done <idea
 
 mkdir -p "$local"
 mv ./$shortcut "$local"
+
+APPS=(
+    "rest.insomnia.Insomnia"
+)
+
+command -v flatpak &>/dev/null || sudo dnf install -y flatpak
+flatpak remote-list | grep -q "flathub" || flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+
+for APP in "${APPS[@]}"; do
+    flatpak install -y flathub "$APP"
+done
