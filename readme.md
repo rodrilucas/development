@@ -26,12 +26,12 @@ Este script automatiza a instalação e configuração de ferramentas e programa
 2. **Dê a permissão para o script**:
 
      ```bash
-   chmod +x script.sh
+   chmod +x development.sh
 
 3. **Execute o script**:
 
      ```bash
-     ./script.sh
+     ./development.sh
 
 ### **Alterações e Melhorias**
 
